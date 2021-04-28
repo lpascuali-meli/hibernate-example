@@ -8,6 +8,8 @@ import meli.bootcamp.hibernate.services.IPatientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@RestController
+@RequestMapping("/patient")
 public class PatientController {
     private IPatientService patientService;
 
