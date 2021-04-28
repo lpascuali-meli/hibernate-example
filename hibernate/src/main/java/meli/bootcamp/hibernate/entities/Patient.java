@@ -9,6 +9,7 @@ import java.util.Set;
 @Data
 public class Patient {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String name;
     private String lastName;
