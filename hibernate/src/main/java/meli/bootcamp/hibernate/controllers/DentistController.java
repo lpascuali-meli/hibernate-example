@@ -1,6 +1,6 @@
 package meli.bootcamp.hibernate.controllers;
 
-import meli.bootcamp.hibernate.entities.Dentist;
+import meli.bootcamp.hibernate.dtos.DentistDto;
 import meli.bootcamp.hibernate.services.IdentistService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +16,9 @@ public class DentistController {
     }
 
     @PostMapping
-    private ResponseEntity saveDentist(@RequestBody Dentist dentist){
+    private ResponseEntity saveDentist(@RequestBody DentistDto dentist){
         dentistService.saveDentist(dentist);
-        return ResponseEntity.ok().body(Dentist);
+        return ResponseEntity.ok().body(DentistDto);
     }
 
 
@@ -28,8 +28,8 @@ public class DentistController {
     }
 
     @PutMapping()
-    private ResponseEntity update2(@RequestBody Dentist Dentist){
-        dentistService.saveDentist(Dentist);
+    private ResponseEntity update2(@RequestBody DentistDto DentistDto){
+        dentistService.saveDentist(DentistDto);
         return ResponseEntity.ok().body("Succesfully updated");
     }
 

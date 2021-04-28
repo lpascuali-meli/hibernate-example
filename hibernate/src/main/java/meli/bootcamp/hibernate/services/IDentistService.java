@@ -5,5 +5,5 @@ import meli.bootcamp.hibernate.entities.Dentist;
 public interface IDentistService {
     void saveDentist(Dentist dentist);
     Dentist getDentistById(Long id);
-
+    void deleteDentist(Long id);
 }
