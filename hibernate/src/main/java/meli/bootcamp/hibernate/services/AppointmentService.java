@@ -2,6 +2,8 @@ package meli.bootcamp.hibernate.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import meli.bootcamp.hibernate.entities.Appointment;
+import meli.bootcamp.hibernate.repositories.IDentistRepository;
+import meli.bootcamp.hibernate.repositories.IPatientRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import meli.bootcamp.hibernate.dtos.AppointmentDto;
@@ -15,15 +17,24 @@ import java.util.stream.Collectors;
 public class AppointmentService implements IAppointmentService {
 
     private final IAppointmentRepository appointmentRepository;
+    private final IDentistRepository dentistRepository;
+    private final IPatientRepository patientRepository;
 
-    public AppointmentService(IAppointmentRepository appointmentRepository) {
+
+    public AppointmentService(IAppointmentRepository appointmentRepository, IDentistRepository dentistRepository, IPatientRepository patientRepository) {
         this.appointmentRepository = appointmentRepository;
+        this.dentistRepository = dentistRepository;
+        this.patientRepository = patientRepository;
     }
 
     @Override
     @Transactional
     public void saveAppointment(AppointmentDto appointmentDto) {
-        Appointment appointment = new ObjectMapper().convertValue(appointmentDto,Appointment.class);
+        // Appointment appointment = new ObjectMapper().convertValue(appointmentDto,Appointment.class);
+        Appointment appointment = new Appointment();
+        appointment.setPatient(patientRepository.findById(appointmentDto.getPatient()).orElse(null));
+        appointment.setDentist(dentistRepository.findById(appointmentDto.getDentist()).orElse(null));
+        appointment.setDate(appointment.getDate());
         this.appointmentRepository.save(appointment);
     }
 
