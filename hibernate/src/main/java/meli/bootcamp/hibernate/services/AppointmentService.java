@@ -55,8 +55,7 @@ public class AppointmentService implements IAppointmentService {
     @Override
     @Transactional
     public List<AppointmentDto> getAppointments() {
-        ObjectMapper mapper = new ObjectMapper();
-        return this.appointmentRepository.findAll().stream().map(appointment -> mapper.convertValue(appointment,AppointmentDto.class)).collect(Collectors.toList());
+        return this.appointmentRepository.findAll().stream().map(ap -> new AppointmentDto( ap.getDentist().getId(), ap.getPatient().getId(), ap.getDate())).collect(Collectors.toList());
     }
 
 }
