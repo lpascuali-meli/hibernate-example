@@ -16,8 +16,8 @@ public class DentistController {
     }
 
     @PostMapping
-    private ResponseEntity saveDentist(@RequestBody Dentist Dentist){
-        dentistService.saveDentist(Dentist);
+    private ResponseEntity saveDentist(@RequestBody Dentist dentist){
+        dentistService.saveDentist(dentist);
         return ResponseEntity.ok().body(Dentist);
     }
 
@@ -25,15 +25,6 @@ public class DentistController {
     @GetMapping("/{id}")
     private ResponseEntity findDentist(@PathVariable Long id){
         return ResponseEntity.ok().body(dentistService.getDentistById(id));
-    }
-
-    @PatchMapping("/{id}")
-    private ResponseEntity update1(@PathVariable Long id, @RequestParam String name, @RequestParam String lastName ){
-        Dentist Dentist = dentistService.getDentistById(id);
-        Dentist.setName(name);
-        Dentist.setLast_name(lastName);
-        dentistService.saveDentist(Dentist);
-        return ResponseEntity.ok().body(Dentist);
     }
 
     @PutMapping()
