@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import meli.bootcamp.hibernate.dtos.DentistDto;
 import meli.bootcamp.hibernate.entities.Dentist;
 import meli.bootcamp.hibernate.repositories.IDentistRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -42,9 +43,7 @@ public class DentistService implements IDentistService{
     @Override
     public List<DentistDto> getDentists() {
         ObjectMapper mapper = new ObjectMapper();
-        return dentistRepository.findAll().stream().map(
-                dentist -> mapper.convertValue(dentist, DentistDto.class)
-                ).collect(Collectors.toList());
+        return dentistRepository.findAll().stream().map(d -> new ModelMapper().map(d, DentistDto.class)).collect(Collectors.toList());
     }
 
 
