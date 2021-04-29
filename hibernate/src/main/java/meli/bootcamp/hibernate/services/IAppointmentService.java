@@ -9,4 +9,5 @@ public interface IAppointmentService {
     void deleteAppointment(Long id);
     AppointmentDto findAppointment(Long id);
     List<AppointmentDto> getAppointments();
+    List<AppointmentDto> getAgendaByDentistId(Long id);
 }

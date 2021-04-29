@@ -43,4 +43,9 @@ public class AppointmentController {
         appointmentService.deleteAppointment(id);
         return ResponseEntity.ok().body(null);
     }
+
+    @GetMapping("/agenda/{id}")
+    private ResponseEntity findDentistAgenda(@PathVariable Long id){
+        return ResponseEntity.ok().body(appointmentService.getAgendaByDentistId(id));
+    }
 }

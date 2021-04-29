@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import meli.bootcamp.hibernate.entities.Appointment;
 import meli.bootcamp.hibernate.repositories.IDentistRepository;
 import meli.bootcamp.hibernate.repositories.IPatientRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import meli.bootcamp.hibernate.dtos.AppointmentDto;
@@ -32,8 +33,8 @@ public class AppointmentService implements IAppointmentService {
     public void saveAppointment(AppointmentDto appointmentDto) {
         // Appointment appointment = new ObjectMapper().convertValue(appointmentDto,Appointment.class);
         Appointment appointment = new Appointment();
-        appointment.setPatient(patientRepository.findById(appointmentDto.getPatient()).orElse(null));
-        appointment.setDentist(dentistRepository.findById(appointmentDto.getDentist()).orElse(null));
+        appointment.setPatient(patientRepository.findById(appointmentDto.getPatient_id()).orElse(null));
+        appointment.setDentist(dentistRepository.findById(appointmentDto.getDentist_id()).orElse(null));
         appointment.setDate(appointmentDto.getDate());
         this.appointmentRepository.save(appointment);
     }
@@ -55,7 +56,12 @@ public class AppointmentService implements IAppointmentService {
     @Override
     @Transactional
     public List<AppointmentDto> getAppointments() {
-        return this.appointmentRepository.findAll().stream().map(ap -> new AppointmentDto( ap.getId(), ap.getDentist().getId(), ap.getPatient().getId(), ap.getDate())).collect(Collectors.toList());
+        return this.appointmentRepository.findAll().stream().map(ap -> new ModelMapper().map(ap, AppointmentDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AppointmentDto> getAgendaByDentistId(Long id) {
+        return appointmentRepository.findAppointmentByDentist(id).stream().map(ap -> new ModelMapper().map(ap, AppointmentDto.class)).collect(Collectors.toList());
     }
 
 }

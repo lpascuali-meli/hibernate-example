@@ -27,6 +27,7 @@ public class DentistController {
         return ResponseEntity.ok().body(dentistService.getDentistById(id));
     }
 
+
     @PutMapping()
     private ResponseEntity update(@RequestBody DentistDto dentistDto){
         dentistService.saveDentist(dentistDto);

@@ -9,4 +9,5 @@ public interface IPatientService {
     PatientDTO getPatientById(Long id);
     void deletePatient(Long id);
     List<PatientDTO> getPatients();
+    List<PatientDTO> findTodayPatients();
 }

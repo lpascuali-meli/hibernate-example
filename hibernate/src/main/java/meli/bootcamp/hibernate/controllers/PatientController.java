@@ -45,4 +45,9 @@ public class PatientController {
         return ResponseEntity.ok().body("Successfully deleted patient with id:" + id);
     }
 
+    @GetMapping("/today")
+    private ResponseEntity findPatientsToday(){
+        return ResponseEntity.ok().body(patientService.findTodayPatients());
+    }
+
 }
