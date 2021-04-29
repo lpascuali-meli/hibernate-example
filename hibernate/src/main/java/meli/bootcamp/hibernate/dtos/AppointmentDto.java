@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppointmentDto {
+    private Long id;
     private Long dentist;
     private Long patient;
     @JsonFormat(pattern="dd/MM/yyyy")

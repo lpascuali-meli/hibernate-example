@@ -34,7 +34,7 @@ public class AppointmentService implements IAppointmentService {
         Appointment appointment = new Appointment();
         appointment.setPatient(patientRepository.findById(appointmentDto.getPatient()).orElse(null));
         appointment.setDentist(dentistRepository.findById(appointmentDto.getDentist()).orElse(null));
-        appointment.setDate(appointment.getDate());
+        appointment.setDate(appointmentDto.getDate());
         this.appointmentRepository.save(appointment);
     }
 
@@ -55,7 +55,7 @@ public class AppointmentService implements IAppointmentService {
     @Override
     @Transactional
     public List<AppointmentDto> getAppointments() {
-        return this.appointmentRepository.findAll().stream().map(ap -> new AppointmentDto( ap.getDentist().getId(), ap.getPatient().getId(), ap.getDate())).collect(Collectors.toList());
+        return this.appointmentRepository.findAll().stream().map(ap -> new AppointmentDto( ap.getId(), ap.getDentist().getId(), ap.getPatient().getId(), ap.getDate())).collect(Collectors.toList());
     }
 
 }
